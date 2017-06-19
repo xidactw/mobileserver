@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+
 # Create your models here.
 
 class ThreeDModel(models.Model):
@@ -41,17 +42,22 @@ class ThreeDModel(models.Model):
     intro_e = models.CharField(max_length=100)
     colimage = models.CharField(max_length=100)
     authoity = models.CharField(max_length=100)
-    bgImageName1 = models.CharField(max_length=100,default="")
-    bgImageName2 = models.CharField(max_length=100,default="")
-    
+    bgImageName1 = models.CharField(max_length=100, default="")
+    bgImageName2 = models.CharField(max_length=100, default="")
 
     def __unicode__(self):
-	return str(self.id)+'-'+self.mname+'-'+self.mid
+        return str(self.id) + '-' + self.mname + '-' + self.mid
+
+
 class App_3DModel_List(models.Model):
     threeDModel = models.ForeignKey(ThreeDModel)
-    tname = models.CharField(max_length=100,default="")
+    tname = models.CharField(max_length=100, default="")
     listImagePath = models.TextField()
-    lastUpdate = models.DateField(auto_now=True)    
-    
+    lastUpdate = models.DateField(auto_now=True)
+
     def __unicode__(self):
-	return str(self.threeDModel.id) + '-' + self.threeDModel.mname
+        return str(self.threeDModel.id) + '-' + self.threeDModel.mname
+
+
+class App_3DModel_list_B(models.Model):
+    threeDModel = models.ForeignKey(ThreeDModel)
