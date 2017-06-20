@@ -2,8 +2,9 @@
 from __future__ import unicode_literals
 
 from django.db import models
-
-
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+import os
 # Create your models here.
 
 class ThreeDModel(models.Model):
@@ -60,4 +61,12 @@ class App_3DModel_List(models.Model):
 
 
 class App_3DModel_list_B(models.Model):
-    threeDModel = models.ForeignKey(ThreeDModel)
+    # threeDModel = models.ForeignKey(ThreeDModel)
+    celImage = models.ImageField(upload_to="static")
+
+@receiver(post_delete, sender=App_3DModel_list_B)
+def photo_post_delete_handler(sender, **kwargs):
+    photo = kwargs['instance']
+    storage, path = photo.celImage.storage, photo.celImage.path
+    storage.delete(path)
+
